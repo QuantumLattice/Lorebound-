@@ -1,0 +1,33 @@
+name: Import RegTech Mechanic
+
+on:
+  push:
+    paths:
+      - 'regtech-mechanic-commercial.zip'
+
+permissions:
+  contents: write
+
+jobs:
+  import-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Unpack project
+        run: |
+          rm -rf .import-project
+          mkdir .import-project
+          unzip -q regtech-mechanic-commercial.zip -d .import-project
+          cp -a .import-project/regtech-mechanic-commercial/. .
+          rm -rf .import-project regtech-mechanic-commercial.zip
+          rm -f .github/workflows/import-project.yml
+
+      - name: Save imported project
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "Import RegTech Mechanic project"
+          git push
