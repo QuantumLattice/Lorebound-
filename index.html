@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0c10" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Lorebound" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="description" content="Lorebound — local-first RPG character backstory creator." />
+  <title>Lorebound</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="brand" id="homeBtn" aria-label="Go to home">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        <span>
+          <strong>Lorebound</strong>
+          <small>Every character has a story.</small>
+        </span>
+      </button>
+      <div class="top-actions">
+        <button class="ghost-btn" id="installBtn" type="button">Install</button>
+        <button class="ghost-btn" id="libraryBtn">Library <span id="libraryCount">0</span></button>
+        <button class="primary-btn" id="newCharacterBtn">New character</button>
+      </div>
+    </header>
+
+    <main id="app" class="main"></main>
+
+    <footer class="footer">
+      <span>Local-first MVP</span>
+      <span>•</span>
+      <span>No paid APIs</span>
+      <span>•</span>
+      <span>Your characters stay in this browser unless you export them.</span>
+    </footer>
+  </div>
+
+  <template id="homeTemplate">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">CHARACTER ORIGIN STUDIO</p>
+        <h1>Build the history behind the hero.</h1>
+        <p class="hero-text">Create RPG characters through guided choices about their world, origins, personality, relationships and defining moment. Lorebound turns those choices into a polished backstory without sending your data anywhere.</p>
+        <div class="hero-actions">
+          <button class="primary-btn large" data-action="start">Create a character</button>
+          <button class="secondary-btn large" data-action="library">Open library</button>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="sigil">✦</div>
+        <p class="eyebrow">THE LOREBOUND METHOD</p>
+        <ol class="method-list">
+          <li><span>01</span> Choose the world</li>
+          <li><span>02</span> Define the character</li>
+          <li><span>03</span> Shape the past</li>
+          <li><span>04</span> Add bonds and flaws</li>
+          <li><span>05</span> Forge the turning point</li>
+          <li><span>06</span> Reveal the backstory</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="install-card" id="installCard">
+      <div>
+        <p class="eyebrow">INSTALL ON IPHONE</p>
+        <h2>Keep Lorebound on your Home Screen.</h2>
+        <p>Once this site is opened in Safari over HTTPS, use Share → Add to Home Screen. After the first load, Lorebound can open offline and your character library remains stored on this device.</p>
+      </div>
+      <button class="secondary-btn" data-action="install-help">Show install steps</button>
+    </section>
+
+    <section class="feature-grid">
+      <article class="feature-card"><span>01</span><h3>Guided creation</h3><p>A focused step-by-step flow keeps character building structured without making it feel like a form.</p></article>
+      <article class="feature-card"><span>02</span><h3>Works offline</h3><p>The MVP uses local browser storage and a built-in story composer. No cloud provider is required.</p></article>
+      <article class="feature-card"><span>03</span><h3>Exportable</h3><p>Download individual characters as text or export the entire library as JSON whenever you want.</p></article>
+    </section>
+  </template>
+
+  <template id="builderTemplate">
+    <section class="builder-layout">
+      <aside class="steps-panel">
+        <div>
+          <p class="eyebrow">NEW CHARACTER</p>
+          <h2 id="draftNameSidebar">Untitled character</h2>
+        </div>
+        <nav id="stepNav" class="step-nav" aria-label="Character creation steps"></nav>
+        <button class="text-btn danger-text" data-action="discard">Discard draft</button>
+      </aside>
+
+      <section class="builder-card">
+        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+        <div id="stepContent"></div>
+        <div class="builder-actions">
+          <button id="backBtn" class="secondary-btn">Back</button>
+          <button id="nextBtn" class="primary-btn">Continue</button>
+        </div>
+      </section>
+    </section>
+  </template>
+
+  <template id="libraryTemplate">
+    <section class="page-heading">
+      <div>
+        <p class="eyebrow">YOUR ARCHIVE</p>
+        <h1>Character library</h1>
+        <p>Saved locally in this browser.</p>
+      </div>
+      <div class="heading-actions">
+        <label class="secondary-btn file-label">Import JSON<input id="importInput" type="file" accept="application/json" hidden></label>
+        <button class="secondary-btn" id="exportLibraryBtn">Export library</button>
+        <button class="primary-btn" data-action="start">New character</button>
+      </div>
+    </section>
+    <div id="libraryGrid" class="library-grid"></div>
+  </template>
+
+  <script src="app.js"></script>
+  <script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {})); }</script>
+</body>
+</html>

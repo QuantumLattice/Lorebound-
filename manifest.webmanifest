@@ -1,0 +1,18 @@
+{
+  "name": "Lorebound",
+  "short_name": "Lorebound",
+  "description": "A local-first RPG character backstory creator.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b0c10",
+  "theme_color": "#0b0c10",
+  "categories": ["games", "entertainment", "productivity"],
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
